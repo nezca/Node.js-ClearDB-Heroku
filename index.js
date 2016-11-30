@@ -6,6 +6,7 @@ app.locals.pretty = true;
 
 app.set('view engine', 'jade');
 app.set('views', './views');
+app.set('port', (process.env.PORT || 5000));
 
 app.use(express.static('public'));
 app.use(bodyPaser.urlencoded({extended:false}));
@@ -41,6 +42,12 @@ app.get('/',function(req,res){
     res.send('this is main page');
 });
 
-app.listen(5000,function(req,res){
-    console.log('connected, 5000port');
+//----- opentutorial's app.listen method -----
+//app.listen(5000,function(req,res){
+//    console.log('connected, 5000port');
+//});
+
+//----- node.js tutorial's app.listen method -----
+app.listen(app.get('port'), function() {
+  console.log('Node app is running on port', app.get('port'));
 });
