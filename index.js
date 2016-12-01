@@ -1,17 +1,27 @@
 var express = require('express');
+var multer = require('multer');
+var storage = multer.diskStorage({
+		destination: function (req, file, cb) {
+				cb(null, 'uploads/')
+		},
+		filename: function (req, file, cb) {
+				cb(null, file.originalname)
+		}
+})
+var upload = multer({storage:storage})
 var app = express();
 var bodyPaser = require('body-parser');
 var fs = require('fs');
 app.locals.pretty = true;
 
+
 app.set('view engine', 'jade');
 app.set('views', './views');
 app.set('port', (process.env.PORT || 5000));
 
+app.use('/user', express.static('uploads'));
 app.use(express.static('public'));
 app.use(bodyPaser.urlencoded({extended:false}));
-
-
 
 app.get('/topic/new', function(req,res){
     res.render('new');
@@ -24,7 +34,7 @@ app.post('/topic',function(req,res){
         if(err){            res.status(500).send('Internal Server Error');
         }
         res.send('SAVED');
-    })
+    });
     
 });
 
@@ -40,9 +50,9 @@ app.get('/topic/:id',function(req,res){
             res.status(500).send('what the fuck!');
         }
             res.render('view',{topics:files, title:id, description:data});
-        })   
-        })      
-        })
+        });   
+        });      
+        });
 
 app.get('/topic',function(req,res){
     fs.readdir('data',function(err,files){
@@ -54,8 +64,12 @@ app.get('/topic',function(req,res){
     })
 });
 
-app.get('/',function(req,res){
-    res.send('this is main page');
+app.get('/upload', function(req,res){
+    res.render('upload');
+});
+
+app.post('/upload', upload.single('userfile'), function(req,res){
+    res.send('uploaded : '+req.file.filename);
 });
 
 //----- opentutorial's app.listen method -----
