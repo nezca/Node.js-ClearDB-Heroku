@@ -23,8 +23,16 @@ app.use('/user', express.static('uploads'));
 app.use(express.static('public'));
 app.use(bodyPaser.urlencoded({extended:false}));
 
+
+
 app.get('/topic/new', function(req,res){
-    res.render('new');
+	fs.readdir('data',function(err,files){
+        if(err){
+            console.log(err);
+            res.status(500).send('what the fuck!');
+        }
+	res.render('new',{topics:files});
+	});
 });
 
 app.post('/topic',function(req,res){
@@ -33,34 +41,43 @@ app.post('/topic',function(req,res){
     fs.writeFile('data/'+title,description, function(err){
         if(err){            res.status(500).send('Internal Server Error');
         }
-        res.send('SAVED');
+        res.redirect('/topic/'+title);
     });
     
 });
 
-app.get('/topic/:id',function(req,res){
-        var id = req.params.id;
-        fs.readdir('data',function(err,files){
-        if(err){
-            console.log(err);
-            res.status(500).send('what the fuck!');
-        }        fs.readFile('data/'+id,'utf8',function(err,data){
-        if(err){
-            console.log(err);
-            res.status(500).send('what the fuck!');
-        }
-            res.render('view',{topics:files, title:id, description:data});
-        });   
-        });      
-        });
+//app.get('/topic/:id',function(req,res){
+//        
+//        fs.readdir('data',function(err,files){
+//        if(err){
+//            console.log(err);
+//            res.status(500).send('what the fuck!');
+//        }           
+//        });      
+//        });
 
-app.get('/topic',function(req,res){
+app.get(['/topic', '/topic/:id'],function(req,res){
     fs.readdir('data',function(err,files){
         if(err){
             console.log(err);
             res.status(500).send('what the fuck!');
         }
-        res.render('view',{topics:files});
+								var id = req.params.id;
+								if(id){
+														// ID 값이 존재할때 리턴해주는 값
+    					fs.readFile('data/'+id,'utf8',function(err,data){
+										if(err){
+            console.log(err);
+            res.status(500).send('what the fuck!');
+        		}
+            res.render('view',{topics:files, title:id, description:data});
+        	});
+								} else {
+														// ID 값이 존재하지 않을때 리턴해주는 값
+        				res.render('view',{topics:files, title:'welcome', description:'Hello, Javascript for Server.'});
+								}
+
+
     })
 });
 
