@@ -72,6 +72,10 @@ app.post('/upload', upload.single('userfile'), function(req,res){
     res.send('uploaded : '+req.file.filename);
 });
 
+app.get('/', function(req,res){
+		res.render('main');
+});
+
 //----- opentutorial's app.listen method -----
 //app.listen(5000,function(req,res){
 //    console.log('connected, 5000port');
