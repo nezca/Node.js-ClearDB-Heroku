@@ -1,0 +1,97 @@
+doctype html
+html(lang='en')
+  head
+    title Bootstrap Example
+    meta(charset='utf-8')
+    meta(name='viewport', content='width=device-width, initial-scale=1')
+    link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css')
+    script(src='https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js')
+    script(src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js')
+    style.
+      /* Remove the navbar's default margin-bottom and rounded borders */
+      .navbar {
+      margin-bottom: 0;
+      border-radius: 0;
+      }
+      /* Add a gray background color and some padding to the footer */
+      footer {
+      background-color: #f2f2f2;
+      padding: 25px;
+      }
+      .carousel-inner img {
+      width: 100%; /* Set width to 100% */
+      margin: auto;
+      min-height:200px;
+      }
+      /* Hide the carousel text when the screen is less than 600 pixels wide */
+      @media (max-width: 600px) {
+      .carousel-caption {
+      display: none;
+      }
+      }
+  body
+    nav.navbar.navbar-inverse
+      .container-fluid
+        .navbar-header
+          button.navbar-toggle(type='button', data-toggle='collapse', data-target='#myNavbar')
+            span.icon-bar
+            span.icon-bar
+            span.icon-bar
+          a.navbar-brand(href='#') Logo
+        #myNavbar.collapse.navbar-collapse
+          ul.nav.navbar-nav
+            li.active
+              a(href='#') Home
+            li
+              a(href='#') About
+            li
+              a(href='#') Projects
+            li
+              a(href='#') Contact
+          ul.nav.navbar-nav.navbar-right
+            li
+              a(href='#')
+                span.glyphicon.glyphicon-log-in
+                |  Login
+    #myCarousel.carousel.slide(data-ride='carousel')
+      // Indicators
+      ol.carousel-indicators
+        li.active(data-target='#myCarousel', data-slide-to='0')
+        li(data-target='#myCarousel', data-slide-to='1')
+      // Wrapper for slides
+      .carousel-inner(role='listbox')
+        .item.active
+          img(src='https://placehold.it/1200x400?text=IMAGE', alt='Image')
+          .carousel-caption
+            h3 Sell $
+            p Money Money.
+        .item
+          img(src='https://placehold.it/1200x400?text=Another Image Maybe', alt='Image')
+          .carousel-caption
+            h3 More Sell $
+            p Lorem ipsum...
+      // Left and right controls
+      a.left.carousel-control(href='#myCarousel', role='button', data-slide='prev')
+        span.glyphicon.glyphicon-chevron-left(aria-hidden='true')
+        span.sr-only Previous
+      a.right.carousel-control(href='#myCarousel', role='button', data-slide='next')
+        span.glyphicon.glyphicon-chevron-right(aria-hidden='true')
+        span.sr-only Next
+    .container.text-center
+      h3 What We Do
+      br
+      .row
+        .col-sm-4
+          img.img-responsive(src='https://placehold.it/150x80?text=IMAGE', style='width:100%', alt='Image')
+          p Current Project
+        .col-sm-4
+          img.img-responsive(src='https://placehold.it/150x80?text=IMAGE', style='width:100%', alt='Image')
+          p Project 2
+        .col-sm-4
+          .well
+            p Some text..
+          .well
+            p Some text..
+    br
+    footer.container-fluid.text-center
+      p Footer Text

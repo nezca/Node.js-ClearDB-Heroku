@@ -8,6 +8,7 @@ var storage = multer.diskStorage({
 				cb(null, file.originalname)
 		}
 })
+var bootstrap = require("express-bootstrap-service");
 var upload = multer({storage:storage})
 var app = express();
 var bodyPaser = require('body-parser');
@@ -19,6 +20,7 @@ app.set('view engine', 'jade');
 app.set('views', './views');
 app.set('port', (process.env.PORT || 5000));
 
+app.use(bootstrap.serve);
 app.use('/user', express.static('uploads'));
 app.use(express.static('public'));
 app.use(bodyPaser.urlencoded({extended:false}));
@@ -85,12 +87,16 @@ app.get('/upload', function(req,res){
     res.render('upload');
 });
 
+app.get('/main_page', function(req,res){
+    res.render('main_page');
+});
+
 app.post('/upload', upload.single('userfile'), function(req,res){
     res.send('uploaded : '+req.file.filename);
 });
 
 app.get('/', function(req,res){
-		res.render('main');
+		res.render('main_page');
 });
 
 //----- opentutorial's app.listen method -----
