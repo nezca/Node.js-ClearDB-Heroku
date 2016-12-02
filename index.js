@@ -87,16 +87,12 @@ app.get('/upload', function(req,res){
     res.render('upload');
 });
 
-app.get('/main_page', function(req,res){
-    res.render('main_page');
-});
-
 app.post('/upload', upload.single('userfile'), function(req,res){
     res.send('uploaded : '+req.file.filename);
 });
 
 app.get('/', function(req,res){
-		res.render('main_page');
+		res.render('main');
 });
 
 //----- opentutorial's app.listen method -----
