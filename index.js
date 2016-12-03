@@ -83,6 +83,10 @@ app.get(['/topic', '/topic/:id'],function(req,res){
     })
 });
 
+app.get('/login', function(req,res){
+    res.render('login');
+});
+
 app.get('/upload', function(req,res){
     res.render('upload');
 });
