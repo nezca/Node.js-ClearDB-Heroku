@@ -5,7 +5,7 @@
   "engines": {
     "node": "5.9.1"
   },
-  "main": "index.js",
+  "main": "index_mysql.js",
   "scripts": {
     "start": "node index.js"
   },

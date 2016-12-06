@@ -14,7 +14,7 @@ connection.connect();
 
 //-------- 1. 생활코딩 solution Start --------
 
-  // ---------1.1 SQL : SELECT start ---------
+  // ---------1.1 SQL : SELECT(읽어오기) start ---------
 
 //var sql = 'SELECT * FROM topic';
 //connection.query(sql, function(err, rows, fields){
@@ -38,9 +38,9 @@ connection.connect();
 //  }
 //});
 
-  // --------- SQL : SELECT end ---------
+  // --------- SQL : SELECT(읽어오기) end ---------
 
-// ---------1.2 SQL : INSERT start ---------
+// ---------1.2 SQL : INSERT(입력) start ---------
 //
 //var sql = 'INSERT INTO topic (title, description, author) VALUES(?, ?, ?)';
 //var params = ['Heroku', 'Nezca web server', 'Nezcaroku'];
@@ -52,9 +52,9 @@ connection.connect();
 //  }
 //});
 
-// ---------1.2 SQL : INSERT end ---------
+// ---------1.2 SQL : INSERT(입력) end ---------
 
-// ---------1.3 SQL : UPDATE start ---------
+// ---------1.3 SQL : UPDATE(수정) start ---------
 
 //var sql = 'UPDATE topic SET title=?, author=?, description=? WHERE id=?';
 //var params = ['NPM', 'noderian', 'libraries for nodejs', 3];
@@ -66,9 +66,9 @@ connection.connect();
 //  }
 //});
 
-// ---------1.3 SQL : UPDATE end ---------
+// ---------1.3 SQL : UPDATE(수정) end ---------
 
-// ---------1.4 SQL : DELETE start ---------
+// ---------1.4 SQL : DELETE(삭제) start ---------
 
 var sql = 'DELETE FROM topic WHERE id=?';
 var params = [6,9];
@@ -80,7 +80,7 @@ connection.query(sql, params, function(err, rows, fields){
   }
 });
 
-// ---------1.4 SQL : DELETE end ---------
+// ---------1.4 SQL : DELETE(삭제) end ---------
 
 //-------- 1. 생활코딩 solution End --------
 
