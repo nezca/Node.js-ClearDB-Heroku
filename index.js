@@ -13,16 +13,42 @@ var upload = multer({storage:storage})
 var app = express();
 var bodyPaser = require('body-parser');
 var fs = require('fs');
-
 var mysql      = require('mysql');
-var connection = mysql.createConnection({
+
+var db_config = {
   host     : 'us-cdbr-iron-east-04.cleardb.net', 
   user     : 'b3656187eddf1d',
   password : '35cc51b2',
   database : 'heroku_c7d5c486c078568'
-});
+};
 
-connection.connect();
+var connection;
+function handleDisconnect(){
+  connection = mysql.createConnection(db_config); 
+  connection.connect(function(err) {              
+    if(err) {
+      console.log('error when connecting to db:', err);
+      setTimeout(handleDisconnect, 2000);
+    }
+  });                                     
+                                         
+  connection.on('error', function(err) {
+    console.log('db error', err);
+    if(err.code === 'PROTOCOL_CONNECTION_LOST') { 
+      handleDisconnect();                         
+    } else {                                      
+      throw err;                                  
+    }
+  });
+};
+//var connection = mysql.createConnection({
+//  host     : 'us-cdbr-iron-east-04.cleardb.net', 
+//  user     : 'b3656187eddf1d',
+//  password : '35cc51b2',
+//  database : 'heroku_c7d5c486c078568'
+//});
+//
+//connection.connect();
 app.locals.pretty = true;
 
 // ------------------------------------------
