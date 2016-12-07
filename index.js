@@ -17,9 +17,9 @@ var fs = require('fs');
 var mysql      = require('mysql');
 var db_config = {
   host     : 'us-cdbr-iron-east-04.cleardb.net', 
-  user     : 'b69910662a1301',
-  password : '0c76890f',
-  database : 'heroku_36ce9bdde949664'
+  user     : 'b3656187eddf1d',
+  password : '35cc51b2',
+  database : 'heroku_c7d5c486c078568'
 };
 
 var connection;
