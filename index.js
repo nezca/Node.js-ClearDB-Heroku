@@ -13,42 +13,35 @@ var upload = multer({storage:storage})
 var app = express();
 var bodyPaser = require('body-parser');
 var fs = require('fs');
-var mysql      = require('mysql');
 
+var mysql      = require('mysql');
 var db_config = {
   host     : 'us-cdbr-iron-east-04.cleardb.net', 
   user     : 'b3656187eddf1d',
   password : '35cc51b2',
   database : 'heroku_c7d5c486c078568'
 };
+var handleKFDisconnect = function() {
+    kfdb.on('error', function(err) {
+        if (!err.fatal) {
+            return;
+        };
+        if (err.code !== 'PROTOCOL_CONNECTION_LOST') {
+            console.log("PROTOCOL_CONNECTION_LOST");
+            throw err;
+        };
+        log.error("The database is error:" + err.stack);
 
-var connection;
-function handleDisconnect(){
-  connection = mysql.createConnection(db_config); 
-  connection.connect(function(err) {              
-    if(err) {
-      console.log('error when connecting to db:', err);
-      setTimeout(handleDisconnect, 2000);
-    }
-  });                                     
-                                         
-  connection.on('error', function(err) {
-    console.log('db error', err);
-    if(err.code === 'PROTOCOL_CONNECTION_LOST') { 
-      handleDisconnect();                         
-    } else {                                      
-      throw err;                                  
-    }
-  });
-};
-//var connection = mysql.createConnection({
-//  host     : 'us-cdbr-iron-east-04.cleardb.net', 
-//  user     : 'b3656187eddf1d',
-//  password : '35cc51b2',
-//  database : 'heroku_c7d5c486c078568'
-//});
-//
-//connection.connect();
+        kfdb = mysql.createConnection(kf_config);
+
+        console.log("kfid");
+
+        console.log(kfdb);
+        handleKFDisconnect();
+    });
+   };
+
+
 app.locals.pretty = true;
 
 // ------------------------------------------
@@ -82,7 +75,8 @@ app.post('/topic/add',function(req,res){
     var author = req.body.author;
     var sql = 'INSERT INTO topic (title, description, author) VALUES(?, ?, ?)';
     connection.query(sql, [title, description, author], function(err, result, fields){
-      if(err){            res.status(500).send('Internal Server Error');
+      if(err){
+        res.status(500).send('Internal Server Error');
         }else{
           res.redirect('/topic/'+result.indertId);
         }
