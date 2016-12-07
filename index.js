@@ -16,10 +16,10 @@ var fs = require('fs');
 
 var mysql      = require('mysql');
 var connection = mysql.createConnection({
-  host     : 'us-cdbr-iron-east-04.cleardb.net', 
-  user     : 'b3656187eddf1d',
-  password : '35cc51b2',
-  database : 'heroku_c7d5c486c078568'
+  host     : 'localhost', 
+  user     : 'root',
+  password : 'a1320929',
+  database : 'testbase'
 });
 
 connection.connect();
