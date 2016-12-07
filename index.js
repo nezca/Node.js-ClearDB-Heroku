@@ -20,6 +20,7 @@ var connection = mysql.createConnection({
   user     : 'b3656187eddf1d',
   password : '35cc51b2',
   database : 'heroku_c7d5c486c078568'
+  port     : '3306'
 });
 
 connection.connect();
