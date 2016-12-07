@@ -15,21 +15,6 @@ var bodyPaser = require('body-parser');
 var fs = require('fs');
 
 var mysql      = require('mysql');
-
-// -------------------------------------------------
-//var connection = mysql.createConnection({
-//  host     : 'us-cdbr-iron-east-04.cleardb.net', 
-//  user     : 'b3656187eddf1d',
-//  password : '35cc51b2',
-//  database : 'heroku_c7d5c486c078568'
-//});
-//
-//connection.connect();
-
-// ----------------------------------------------
-//
-//
-
 var db_config = {
   host     : 'us-cdbr-iron-east-04.cleardb.net', 
   user     : 'b3656187eddf1d',
