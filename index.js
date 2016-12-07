@@ -17,30 +17,30 @@ var fs = require('fs');
 var mysql      = require('mysql');
 var db_config = {
   host     : 'us-cdbr-iron-east-04.cleardb.net', 
-  user     : 'b3656187eddf1d',
-  password : '35cc51b2',
-  database : 'heroku_c7d5c486c078568'
+  user     : 'b69910662a1301',
+  password : '0c76890f',
+  database : 'heroku_36ce9bdde949664'
 };
-var handleKFDisconnect = function() {
-    kfdb.on('error', function(err) {
-        if (!err.fatal) {
-            return;
-        };
-        if (err.code !== 'PROTOCOL_CONNECTION_LOST') {
-            console.log("PROTOCOL_CONNECTION_LOST");
-            throw err;
-        };
-        log.error("The database is error:" + err.stack);
 
-        kfdb = mysql.createConnection(kf_config);
-
-        console.log("kfid");
-
-        console.log(kfdb);
-        handleKFDisconnect();
-    });
-   };
-
+var connection;
+function handleDisconnect(){
+  connection = mysql.createConnection(db_config); 
+  connection.connect(function(err) {              
+    if(err) {
+      console.log('error when connecting to db:', err);
+      setTimeout(handleDisconnect, 2000);
+    }
+  });                                     
+                                         
+  connection.on('error', function(err) {
+    console.log('db error', err);
+    if(err.code === 'PROTOCOL_CONNECTION_LOST') { 
+      handleDisconnect();                         
+    } else {                                      
+      throw err;                                  
+    }
+  });
+};
 
 app.locals.pretty = true;
 
