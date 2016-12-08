@@ -51,7 +51,7 @@ app.locals.pretty = true;
 // ------------------------------------------
 
 app.set('view engine', 'jade');
-app.set('views', './views_mysql');
+app.set('views', './views');
 app.set('port', (process.env.PORT || 5000));
 
 app.use(bootstrap.serve);
